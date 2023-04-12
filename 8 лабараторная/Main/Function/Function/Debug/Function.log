@@ -1,0 +1,3 @@
+﻿  Assembling Function.asm...
+LINK : error LNK2001: неразрешенный внешний символ _mainCRTStartup.
+C:\Users\rst\Desktop\study\3 семестр\Лабы низкоур\8 лабараторная\Function\Debug\Function.exe : fatal error LNK1120: неразрешенных внешних элементов: 1

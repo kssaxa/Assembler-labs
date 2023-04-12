@@ -1,0 +1,126 @@
+Microsoft (R) Macro Assembler (x64) Version 14.33.31630.0   01/20/23 10:45:32
+Source.asm						     Page 1 - 1
+
+
+				.386
+Source.asm(1) : error A2008:syntax error : .
+				.model flat,stdcall
+Source.asm(2) : error A2008:syntax error : .
+				option casemap: none
+				includelib kernel32.lib
+				;------------------------------------------------------------------
+ = 80000000			GENERIC_READ EQU 80000000h
+ = 00000000			DO_NOT_SHARE EQU 0
+ = 00000000			NULL EQU 0
+ = 00000003			OPEN_EXISTING EQU 3
+ = 00000080			FILE_ATTRIBUTE_NORMAL EQU 80h
+ =-0000000B			STD_OUTPUT_HANDLE EQU -11
+ = 40000000			GENERIC_WRITE EQU 40000000h
+ = 00000002			FILE_END EQU 2
+ = CreateFileA			CreateFile 	EQU <CreateFileA>
+ = WriteConsoleA		WriteConsole 	EQU <WriteConsoleA>
+ = DWORD			HANDLE TEXTEQU <DWORD>
+ = 00000002			CREATE_ALWAYS EQU 2
+				;------------------------------------------------------------------
+				CreateFile PROTO,		
+Source.asm(19) : error A2008:syntax error : ,
+									lpFilename:									PTR BYTE,		
+									dwDesiredAccess:							DWORD,		
+									dwShareMode:								DWORD,		
+									lpSecurityAttributes:					DWORD,  		
+									dwCreationDisposition:				DWORD,	
+									dwFlagsAndAttributes:				DWORD,	
+									hTemplateFile:								DWORD
+
+				WriteFile PROTO,		
+Source.asm(28) : error A2008:syntax error : ,
+									hFile:													HANDLE,		
+									lpBuffer:												PTR BYTE,		
+									nNumberOfBytesToWrite:				DWORD,		
+									lpNumberOfBytesWritten:				PTR DWORD,	
+									lpOverlapped:									PTR DWORD
+
+				CloseHandle PROTO,
+Source.asm(35) : error A2008:syntax error : ,
+										hObject:DWORD
+				;------------------------------------------------------------------
+ 00000000			.data
+ 00000000 3C 69 74 20 77		buffer BYTE "<it was here> ",0dh,0ah
+	   61 73 20 68 65
+	   72 65 3E 20 0D
+	   0A
+ = 00000010				bufSize = 16
+ 00000010 6F 75 74 70 75		filename BYTE "output.txt",0
+	   74 2E 74 78 74
+	   00
+ 0000001B 00000000			fileHandle DWORD ?
+ 0000001F 00000000			bytesWritten DWORD ?
+				;------------------------------------------------------------------
+ 00000000			.code
+ 00000000			WriteProc PROC 
+					
+				   INVOKE CreateFile,
+Source.asm(48) : error A2008:syntax error : INVOKE
+									ADDR filename,
+									GENERIC_WRITE,
+									DO_NOT_SHARE,
+									NULL,
+									CREATE_ALWAYS,
+									FILE_ATTRIBUTE_NORMAL,
+									0
+ 00000000  89 05 0000001B R		mov fileHandle,eax
+
+					INVOKE WriteFile,
+Source.asm(58) : error A2008:syntax error : INVOKE
+									fileHandle,
+									ADDR buffer,
+									bufSize,
+									ADDR bytesWritten,
+									0
+
+					INVOKE CloseHandle,
+Source.asm(65) : error A2008:syntax error : INVOKE
+									fileHandle
+
+ 00000006  C3			ret
+ 00000007			WriteProc ENDP
+				END WriteProc
+Source.asm(70) : error A2008:syntax error : WriteProc
+Source.asm(70) : error A2088:END directive required at end of file
+Microsoft (R) Macro Assembler (x64) Version 14.33.31630.0   01/20/23 10:45:32
+Source.asm						     Symbols 2 - 1
+
+
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+WriteProc  . . . . . . . . . . .	P 	 00000000 _TEXT	Length= 00000007 Public
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+CREATE_ALWAYS  . . . . . . . . .	Number	 00000002h   
+CreateFile . . . . . . . . . . .	Text   	 CreateFileA
+DO_NOT_SHARE . . . . . . . . . .	Number	 00000000h   
+FILE_ATTRIBUTE_NORMAL  . . . . .	Number	 00000080h   
+FILE_END . . . . . . . . . . . .	Number	 00000002h   
+GENERIC_READ . . . . . . . . . .	Number	 -80000000h   
+GENERIC_WRITE  . . . . . . . . .	Number	 40000000h   
+HANDLE . . . . . . . . . . . . .	Text   	 DWORD
+NULL . . . . . . . . . . . . . .	Number	 00000000h   
+OPEN_EXISTING  . . . . . . . . .	Number	 00000003h   
+STD_OUTPUT_HANDLE  . . . . . . .	Number	 -0000000Bh   
+WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
+bufSize  . . . . . . . . . . . .	Number	 00000010h   
+buffer . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+bytesWritten . . . . . . . . . .	DWord	 0000001F _DATA	
+fileHandle . . . . . . . . . . .	DWord	 0000001B _DATA	
+filename . . . . . . . . . . . .	Byte	 00000010 _DATA	
+
+	   0 Warnings
+	   10 Errors
